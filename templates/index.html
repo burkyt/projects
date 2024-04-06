@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+    Количество товаров: {{ pro.procount }}
+    <div class="row py-5">
+        <div class="col-3">
+            <h3 class="text-center mb-4">Category</h3>
+            {% for category in categories %}
+                <a href="{% url 'product' id=category.id %}"> {{ category.title }}({{ category.count2 }}) </a>
+                <hr/>
+            {% endfor %}
+        </div>
+        <div class="col-9">
+            <h3 class="text-center mb-4">Products</h3>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-4">
+                        <div class="card mb-4" style="width: 18rem;">
+                            <div class="card-body">
+                                <a href="{% url 'product-detail' product_id=product.id %}">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                </a>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">{{ product.price }}</h6>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">Просмтор: {{ product.visit }}</p>
+                                <a href="{% url 'add_cart' id=product.id %}" class="btn btn-warning">В корзину</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
